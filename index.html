@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="RPSApp">
+<head>
+	<title>Rock Paper Scissors</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/services/gameState.js"></script>
+	<script src="js/controllers/gameController.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<div class="container-fluid">
+		<header>
+			<h1>ROCK PAPER SCISSORS</h1>
+		</header>
+
+		<section ng-controller="GameController as game">
+
+			<!-- area containing the scores and the icon boxes -->
+			<div class="row" id="game-area">
+				<div class="col-xs-6 col-sm-4 icon-area">
+					<div class="score-container">
+						<h3 class="score">Player {{ game.playerScore }}</h3>
+					</div>
+					<div class="icon-container simple-border">
+						<img class="icon" alt="" ng-show="!game.showPlayerWinMessage" src="{{game.playerIconURL}}">
+						<h2 class="win-message" ng-show="game.showPlayerWinMessage">{{ game.winMessage }}</h2>
+					</div>
+				</div>
+				<div class="col-xs-0 col-sm-4">
+				</div>
+				<div class="col-xs-6 col-sm-4 icon-area">	
+					<div class="score-container">	
+						<h3 class="score">Computer {{ game.computerScore }}</h3>
+					</div>
+					<div class="icon-container simple-border">
+						<img class="icon" alt="" src="{{game.computerIconURL}}" ng-show="!game.showComputerWinMessage">
+						<h2 class="win-message" ng-show="game.showComputerWinMessage">{{ game.winMessage }}</h2>
+					</div>
+				</div>	
+			</div>
+
+			<!-- area containing the icon buttons used during the game. This area is hidden/shown alternately with the main button with ng-show depending on the value of game.gameState -->
+			<div class="buttons-area row" ng-show="game.gameState">
+				<div class="col-xs-4">
+					<div class="button-box simple-border" id="button-rock" type="submit" value="" ng-click="!game.enableIconClick || game.selectRock()" ng-class="{'red-rock' : game.highlightRock}">
+						<img class="button-icon" alt="" src="images/rock.png">
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="button-box simple-border" id="button-paper" type="submit" value="" ng-click="!game.enableIconClick || game.selectPaper()" ng-class="{'red-paper' : game.highlightPaper}">
+						<img class="button-icon" alt="" src="images/paper.png">
+					</div>
+				</div>	
+				<div class="col-xs-4">
+					<div class="button-box simple-border" id="button-scissors" type="submit" value="" ng-click="!game.enableIconClick || game.selectScissors()" ng-class=" {'red-scissors' : game.highlightScissors}">
+					<img class="button-icon" alt="" src="images/scissors.png">
+					</div>
+				</div>
+			</div>
+			
+			<!-- This is the main button that appears at the beginning and end of each turn. This area is hidden/shown alternately with the main button with ng-show depending on the value of game.gameState -->
+			<input class="button-start" id="start-button" type="submit" value="{{ game.buttonMessage }}" ng-click="!game.enableButtonClick || game.startGame()" ng-show="!game.gameState" ng-class=" {'red-button-start' : game.highlightStartButton}">
+		</div>
+	</section>
+</body>
