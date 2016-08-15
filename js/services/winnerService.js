@@ -54,4 +54,15 @@ function WinnerService() {
  		}
  	}
 
+ 	//returns message showing whether rock, paper, scissors, spock or lizard has won
+ 	self.createWinMessage = function(winner, playerTurn, computerTurn){
+ 		if (winner == "draw"){
+ 			return "It's a draw!";
+ 		} else if (winner == "player") {
+ 			return playerTurn + " wins!";
+ 		} else {
+ 			return computerTurn + " wins!";
+ 		}
+ 	}
+
 }

@@ -126,21 +126,10 @@ function GameController($scope, $timeout, GameState, Winner, Computer){
 		var winner = Winner.findWinner(playerTurn, computerTurn);
 
 		//sets the winMessage that displays the winning turn in the icon boxes
-		self.winMessage = createWinMessage(winner, playerTurn, computerTurn);
+		self.winMessage = Winner.createWinMessage(winner, playerTurn, computerTurn);
 		
 		//calls for winMessage to be flashed
 		flashMessage(winner);
-	}
-
-	//returns message showing whether rock, paper, scissors, spock or lizard has won
-	function createWinMessage(winner, playerTurn, computerTurn){
-		if (winner == "draw"){
-			return "It's a draw!";
-		} else if (winner == "player") {
-			return playerTurn + " wins!";
-		} else {
-			return computerTurn + " wins!";
-		}
 	}
 
 	//shows message after 2 seconds and then hides it, increases score and checks for champion after an additional 2 seconds
