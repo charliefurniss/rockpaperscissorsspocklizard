@@ -12,14 +12,14 @@
 <body>
 	<div class="container-fluid">
 		<header>
-			<h1>ROCK PAPER SCISSORS</h1>
+			<h1>ROCK PAPER SCISSORS LIZARD SPOCK</h1>
 		</header>
 
 		<section ng-controller="GameController as game">
 
 			<!-- area containing the scores and the icon boxes -->
 			<div class="row" id="game-area">
-				<div class="col-xs-6 col-sm-4 icon-area">
+				<div class="col-xs-5 col-xs-offset-1 icon-area">
 					<div class="score-container">
 						<h3 class="score">Player {{ game.playerScore }}</h3>
 					</div>
@@ -28,9 +28,9 @@
 						<h2 class="win-message" ng-show="game.showPlayerWinMessage">{{ game.winMessage }}</h2>
 					</div>
 				</div>
-				<div class="col-xs-0 col-sm-4">
+				<div class="col-xs-0">
 				</div>
-				<div class="col-xs-6 col-sm-4 icon-area">	
+				<div class="col-xs-5 icon-area">	
 					<div class="score-container">	
 						<h3 class="score">Computer {{ game.computerScore }}</h3>
 					</div>

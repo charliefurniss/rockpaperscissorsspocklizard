@@ -7,13 +7,14 @@ function GameController($scope, $timeout, GameState){
 
 	var self = this;
 
-	self.enableButtonClick = true;              //enables/disables the click function on the main button
-	self.enableIconClick = false;               //enables/disables the click function on the icon buttons
+	self.enableButtonClick = false;              //enables/disables the click function on the main button
+	self.enableIconClick = true;               //enables/disables the click function on the icon buttons
 	self.gameState = GameState.gameState;		//the value of this boolean variable determines whether the main button or the icon buttons are showing
 	self.winMessage = "";
 	self.buttonMessage = "Click to play...";
 
 	setVariables();
+	clearIcons();
 
 	self.startGame = function(){
 		self.enableButtonClick = false;
@@ -69,7 +70,7 @@ function GameController($scope, $timeout, GameState){
 
 	/// responds to player clicking on rock button by
 	self.selectRock = function(){
-		var turn = "rock";
+		var turn = 'rock';
 		completeRound(turn);
 
 		self.enableIconClick = false;		//disables click function on icon buttons
@@ -80,7 +81,7 @@ function GameController($scope, $timeout, GameState){
 	}
 
 	self.selectPaper = function(){
-		var turn = "paper";
+		var turn = 'paper';
 		completeRound(turn);
 		
 		self.enableIconClick = false;		//disables click function on icon buttons
@@ -91,7 +92,7 @@ function GameController($scope, $timeout, GameState){
 	}
 
 	self.selectScissors = function(){
-		var turn = "scissors";
+		var turn = 'scissors';
 		completeRound(turn);
 		
 		self.enableIconClick = false;		//disables click function on icon buttons
@@ -101,9 +102,33 @@ function GameController($scope, $timeout, GameState){
 		}, 200, true);
 	}
 
+	self.selectSpock = function(){
+		var turn = 'spock';
+		completeRound(turn);
+		
+		self.enableIconClick = false;		//disables click function on icon buttons
+		self.highlightSpock = true;			//uses ng-class to add a class that changes the background colour of the relevant icon-button
+		$timeout(function(){
+			self.highlightSpock = false;	//uses ng-class to remove the above mentioned class
+		}, 200, true);
+	}
+
+	self.selectLizard = function(){
+		var turn = 'lizard';
+		completeRound(turn);
+		
+		self.enableIconClick = false;		//disables click function on icon buttons
+		self.highlightLizard = true;		//uses ng-class to add a class that changes the background colour of the relevant icon-button
+		$timeout(function(){
+			self.highlightLizard = false;	//uses ng-class to remove the above mentioned class
+		}, 200, true);
+	}
+
 	function completeRound(playerTurn){
+		
 		//calls for computer turn
 		var computerTurn = computerSelect();
+
 		//calls for the relevant image based on computer and player's turns
 		self.playerIconURL = "images/" + playerTurn + ".png";
 		self.computerIconURL = "images/" + computerTurn + ".png";
@@ -113,30 +138,70 @@ function GameController($scope, $timeout, GameState){
 
 		//sets the winMessage that displays the winning turn in the icon boxes
 		self.winMessage = createWinMessage(winner, playerTurn, computerTurn);
-
+		console.log("player turn: " + playerTurn);
+		console.log("comp turn: " + computerTurn);
+		console.log("winner is " + winner);
+		console.log("winMessage: " + self.winMessage);
 		//calls for winMessage to be flashed
 		flashMessage(winner);
 	}
 
 	//selects computer's icon from array using a random number between 0 and 2
 	function computerSelect(){
-		var iconArray = ["rock", "paper", "scissors"];
-		var number = Math.floor(((Math.random() * 3)));
+		var iconArray = ['rock', 'paper', 'scissors', 'spock', 'lizard'];
+		var number = Math.floor(((Math.random() * 5)));
 		return iconArray[number];
 	}
 
 	//calculates and return the name of the winner using Rock Paper Scissors rules
 	function findWinner(playerTurn, computerTurn){
-		if (playerTurn === computerTurn){
-			return "draw";
-		} else if ((playerTurn == "rock" && computerTurn == "scissors") || (playerTurn == "scissors" && computerTurn == "paper") || (playerTurn == "paper" && computerTurn == "rock")){
-			return "player";
+		if(playerTurn == computerTurn){
+			return 'draw';
 		} else {
-			return "computer";
+			switch (playerTurn) {
+			    case 'rock':
+			        if(computerTurn == 'scissors' || computerTurn == 'lizard'){
+			        	return "player";
+			        } else {
+			        	return "computer";
+			        }
+			        break;
+			    case 'paper':
+			        if(computerTurn == 'rock' || computerTurn == 'spock'){
+			        	return "player";
+			        } else {
+			        	return "computer";
+			        }
+			        break;
+			    case 'scissors':
+			        if(computerTurn == 'paper' || computerTurn == 'lizard'){
+			        	return "player";
+			        } else {
+			        	return "computer";
+			        }
+			        break;
+			    case 'spock':
+			        if(computerTurn == 'scissors' || computerTurn == 'rock'){
+			        	return "player";
+			        } else {
+			        	return "computer";
+			        }
+			        break;
+			    case 'lizard':
+			        if(computerTurn == 'spock' || computerTurn == 'paper'){
+			        	return "player";
+			        } else {
+			        	return "computer";
+			        }
+			        break;        
+			    default:
+			        winner = "";
+			        break;
+			}
 		}
 	}
 
-	//returns message showing whether rock, paper or scissors has won
+	//returns message showing whether rock, paper, scissors, spock or lizard has won
 	function createWinMessage(winner, playerTurn, computerTurn){
 		if (winner == "draw"){
 			return "It's a draw!";
@@ -153,8 +218,8 @@ function GameController($scope, $timeout, GameState){
 			showMessage(winner);
 			$timeout(function(){
 				increaseScore(winner);
-				hideMessage();
-				checkForChamp();
+				// hideMessage();
+				// checkForChamp();
 			}, 2000, true);
 		}, 2000);
 	}
@@ -185,6 +250,7 @@ function GameController($scope, $timeout, GameState){
 		} else if (winner == "computer"){
 			self.computerScore++;
 		}
+		console.log(self.playerScore);
 	}
 
 	//checks to see if either player has 2 points and continues game if not
