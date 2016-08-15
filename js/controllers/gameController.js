@@ -69,63 +69,48 @@ function GameController($scope, $timeout, GameState){
 	}
 
 	self.selectIcon = function(event){
-		console.log(event);
+		self.enableIconClick = false;		//disables click function on icon buttons
+		var turn = event.target.id;
+		buttonFlash(turn);
+		completeRound(turn);
 	}
 
-	/// responds to player clicking on rock button by
-	self.selectRock = function(){
-		var turn = 'rock';
-		completeRound(turn);
-
-		self.enableIconClick = false;		//disables click function on icon buttons
-		self.highlightRock = true;         	//uses ng-class to add a class that changes the background colour of the relevant icon-button
-		$timeout(function(){
-			self.highlightRock = false;		//uses ng-class to remove the above mentioned class
-		}, 200, true);
-	}
-
-	self.selectPaper = function(){
-		var turn = 'paper';
-		completeRound(turn);
-		
-		self.enableIconClick = false;		//disables click function on icon buttons
-		self.highlightPaper = true;			//uses ng-class to add a class that changes the background colour of the relevant icon-button
-		$timeout(function(){
-			self.highlightPaper = false;	//uses ng-class to remove the above mentioned class
-		}, 200, true);
-	}
-
-	self.selectScissors = function(){
-		var turn = 'scissors';
-		completeRound(turn);
-		
-		self.enableIconClick = false;		//disables click function on icon buttons
-		self.highlightScissors = true;		//uses ng-class to add a class that changes the background colour of the relevant icon-button
-		$timeout(function(){
-			self.highlightScissors = false;	//uses ng-class to remove the above mentioned class
-		}, 200, true);
-	}
-
-	self.selectSpock = function(){
-		var turn = 'spock';
-		completeRound(turn);
-		
-		self.enableIconClick = false;		//disables click function on icon buttons
-		self.highlightSpock = true;			//uses ng-class to add a class that changes the background colour of the relevant icon-button
-		$timeout(function(){
-			self.highlightSpock = false;	//uses ng-class to remove the above mentioned class
-		}, 200, true);
-	}
-
-	self.selectLizard = function(){
-		var turn = 'lizard';
-		completeRound(turn);
-		
-		self.enableIconClick = false;		//disables click function on icon buttons
-		self.highlightLizard = true;		//uses ng-class to add a class that changes the background colour of the relevant icon-button
-		$timeout(function(){
-			self.highlightLizard = false;	//uses ng-class to remove the above mentioned class
-		}, 200, true);
+	function buttonFlash(turn){
+		switch (turn) {
+		    case 'rock':
+		        self.highlightRock = true;         	//uses ng-class to add a class that changes the background colour of the relevant icon-button
+		        $timeout(function(){
+		        	self.highlightRock = false;		//uses ng-class to remove the above mentioned class
+		        }, 200, true);
+		        break;
+		    case 'paper':
+		        self.highlightPaper = true;
+		        $timeout(function(){
+		        	self.highlightRock = false;		
+		        }, 200, true);
+		        break;
+		    case 'scissors':
+		        self.highlightScissors = true;
+		        $timeout(function(){
+		        	self.highlightScissors = false;
+		        }, 200, true);
+		        break;
+		    case 'spock':
+		        self.highlightSpock = true;
+		        $timeout(function(){
+		        	self.highlightSpock = false;
+		        }, 200, true);
+		        break;
+		    case 'lizard':
+		        self.highlightLizard = true;        
+		        $timeout(function(){
+		        	self.highlightLizard = false;
+		        }, 200, true);
+		        break;        
+		    default:
+		    	return;
+		        break;
+		}
 	}
 
 	function completeRound(playerTurn){
