@@ -1,9 +1,9 @@
 angular.module('RPSApp')
 	.controller('GameController', GameController);
 
-GameController.$inject = ['$scope', '$timeout', 'GameStateService'];
+GameController.$inject = ['$scope', '$timeout', 'GameStateService', 'WinnerService', 'ComputerService'];
 
-function GameController($scope, $timeout, GameState){
+function GameController($scope, $timeout, GameState, Winner, Computer){
 
 	var self = this;
 
@@ -116,78 +116,20 @@ function GameController($scope, $timeout, GameState){
 	function completeRound(playerTurn){
 		
 		//calls for computer turn
-		var computerTurn = computerSelect();
+		var computerTurn = Computer.computerSelect();
 
 		//calls for the relevant image based on computer and player's turns
 		self.playerIconURL = "images/" + playerTurn + ".png";
 		self.computerIconURL = "images/" + computerTurn + ".png";
 		
 		//stores winner in a variable
-		var winner = findWinner(playerTurn, computerTurn);
+		var winner = Winner.findWinner(playerTurn, computerTurn);
 
 		//sets the winMessage that displays the winning turn in the icon boxes
 		self.winMessage = createWinMessage(winner, playerTurn, computerTurn);
-		console.log("player turn: " + playerTurn);
-		console.log("comp turn: " + computerTurn);
-		console.log("winner is " + winner);
-		console.log("winMessage: " + self.winMessage);
+		
 		//calls for winMessage to be flashed
 		flashMessage(winner);
-	}
-
-	//selects computer's icon from array using a random number between 0 and 2
-	function computerSelect(){
-		var iconArray = ['rock', 'paper', 'scissors', 'spock', 'lizard'];
-		var number = Math.floor(((Math.random() * 5)));
-		return iconArray[number];
-	}
-
-	//calculates and return the name of the winner using Rock Paper Scissors rules
-	function findWinner(playerTurn, computerTurn){
-		if(playerTurn == computerTurn){
-			return 'draw';
-		} else {
-			switch (playerTurn) {
-			    case 'rock':
-			        if(computerTurn == 'scissors' || computerTurn == 'lizard'){
-			        	return "player";
-			        } else {
-			        	return "computer";
-			        }
-			        break;
-			    case 'paper':
-			        if(computerTurn == 'rock' || computerTurn == 'spock'){
-			        	return "player";
-			        } else {
-			        	return "computer";
-			        }
-			        break;
-			    case 'scissors':
-			        if(computerTurn == 'paper' || computerTurn == 'lizard'){
-			        	return "player";
-			        } else {
-			        	return "computer";
-			        }
-			        break;
-			    case 'spock':
-			        if(computerTurn == 'scissors' || computerTurn == 'rock'){
-			        	return "player";
-			        } else {
-			        	return "computer";
-			        }
-			        break;
-			    case 'lizard':
-			        if(computerTurn == 'spock' || computerTurn == 'paper'){
-			        	return "player";
-			        } else {
-			        	return "computer";
-			        }
-			        break;        
-			    default:
-			        winner = "";
-			        break;
-			}
-		}
 	}
 
 	//returns message showing whether rock, paper, scissors, spock or lizard has won
