@@ -68,6 +68,10 @@ function GameController($scope, $timeout, GameState){
 		startLoop();
 	}
 
+	self.selectIcon = function(event){
+		console.log(event);
+	}
+
 	/// responds to player clicking on rock button by
 	self.selectRock = function(){
 		var turn = 'rock';
