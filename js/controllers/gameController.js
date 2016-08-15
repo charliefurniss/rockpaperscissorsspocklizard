@@ -7,8 +7,8 @@ function GameController($scope, $timeout, GameState, Winner, Computer){
 
 	var self = this;
 
-	self.enableButtonClick = false;              //enables/disables the click function on the main button
-	self.enableIconClick = true;               //enables/disables the click function on the icon buttons
+	self.enableButtonClick = true;              //enables/disables the click function on the main button
+	self.enableIconClick = false;               //enables/disables the click function on the icon buttons
 	self.gameState = GameState.gameState;		//the value of this boolean variable determines whether the main button or the icon buttons are showing
 	self.winMessage = "";
 	self.buttonMessage = "Click to play...";
@@ -138,8 +138,8 @@ function GameController($scope, $timeout, GameState, Winner, Computer){
 			showMessage(winner);
 			$timeout(function(){
 				increaseScore(winner);
-				// hideMessage();
-				// checkForChamp();
+				hideMessage();
+				checkForChamp();
 			}, 2000, true);
 		}, 2000);
 	}
@@ -170,7 +170,6 @@ function GameController($scope, $timeout, GameState, Winner, Computer){
 		} else if (winner == "computer"){
 			self.computerScore++;
 		}
-		console.log(self.playerScore);
 	}
 
 	//checks to see if either player has 2 points and continues game if not

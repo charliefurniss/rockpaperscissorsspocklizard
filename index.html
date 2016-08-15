@@ -14,14 +14,14 @@
 <body>
 	<div class="container-fluid">
 		<header>
-			<h1>ROCK PAPER SCISSORS LIZARD SPOCK</h1>
+			<h1>ROCK PAPER SCISSORS SPOCK LIZARD</h1>
 		</header>
 
 		<section ng-controller="GameController as game">
 
 			<!-- area containing the scores and the icon boxes -->
 			<div class="row" id="game-area">
-				<div class="col-xs-5 col-xs-offset-1 icon-area">
+				<div class="col-xs-6 col-sm-5 col-sm-offset-1 icon-area">
 					<div class="score-container">
 						<h3 class="score">Player {{ game.playerScore }}</h3>
 					</div>
@@ -30,9 +30,7 @@
 						<h2 class="win-message" ng-show="game.showPlayerWinMessage">{{ game.winMessage }}</h2>
 					</div>
 				</div>
-				<div class="col-xs-0">
-				</div>
-				<div class="col-xs-5 icon-area">	
+				<div class="col-xs-6 col-sm-5 icon-area">	
 					<div class="score-container">	
 						<h3 class="score">Computer {{ game.computerScore }}</h3>
 					</div>
@@ -45,27 +43,29 @@
 
 			<!-- area containing the icon buttons used during the game. This area is hidden/shown alternately with the main button with ng-show depending on the value of game.gameState -->
 			<div class="buttons-area row" ng-show="game.gameState">
-				<div class="col-xs-2 col-xs-offset-1">
+<!-- 			<div class="col-xs-10 col-xs-offset-1 col-sm-2 col-sm-offset-1">
+ -->
+				<div class=" col-xs-12 col-sm-2 col-sm-offset-1">
 					<div class="button-box simple-border" id="rock" type="submit" value="" ng-click="!game.enableIconClick || game.selectIcon($event)" ng-class="{'red-rock' : game.highlightRock}">
 						<img class="button-icon" alt="" src="images/rock.png">
 					</div>
 				</div>
-				<div class="col-xs-2">
+				<div class="col-xs-12 col-sm-2">
 					<div class="button-box simple-border" id="paper" type="submit" value="" ng-click="!game.enableIconClick || game.selectIcon($event)" ng-class="{'red-paper' : game.highlightPaper}">
 						<img class="button-icon" alt="" src="images/paper.png">
 					</div>
 				</div>	
-				<div class="col-xs-2">
+				<div class="col-xs-12 col-sm-2">
 					<div class="button-box simple-border" id="scissors" type="submit" value="" ng-click="!game.enableIconClick || game.selectIcon($event)" ng-class=" {'red-scissors' : game.highlightScissors}">
 					<img class="button-icon" alt="" src="images/scissors.png">
 					</div>
 				</div>
-				<div class="col-xs-2">
+				<div class="col-xs-12 col-sm-2">
 					<div class="button-box simple-border" id="spock" type="submit" value="" ng-click="!game.enableIconClick || game.selectIcon($event)" ng-class="{'red-paper' : game.highlightSpock}">
 						<img class="button-icon" alt="" src="images/spock.png">
 					</div>
 				</div>	
-				<div class="col-xs-2">
+				<div class="col-xs-12 col-sm-2">
 					<div class="button-box simple-border" id="lizard" type="submit" value="" ng-click="!game.enableIconClick || game.selectIcon($event)" ng-class=" {'red-lizard' : game.highlightLizard}">
 					<img class="button-icon" alt="" src="images/lizard.png">
 					</div>
