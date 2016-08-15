@@ -35,6 +35,10 @@ body {
 	letter-spacing: 12px;
 }
 
+#game-area {
+	margin-bottom: 40px;
+}
+
 h1.countdown {
 	font-size: 3em;
 	top: 50%;
@@ -87,7 +91,6 @@ header h1 {
 
 .button-box,
 .button-start {
-	margin-top: 40px;
 	margin-bottom: 20px;
 }
 
@@ -97,7 +100,7 @@ header h1 {
 
 .button-icon {
 	width: 40%;
-	padding-top: 10px
+	padding-top: 15px
 }
 
 .button-start {
@@ -136,6 +139,17 @@ header h1 {
 .icon-container {
     height: 0;
     padding-bottom: 100%;
+}
+
+@media screen and (max-width: 992px) {
+
+	/*BUTTON STYLES*/
+
+	.button-icon {
+		width: 40%;
+		padding-top: 20px
+	}
+
 }
 
 
